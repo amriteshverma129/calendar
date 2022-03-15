@@ -1,0 +1,97 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+  position: relative;
+  background-color: #e4e8eb;
+  padding: 20px;
+}
+
+.container .calendarHeading {
+  position: relative;
+}
+
+.container .calendarHeading button {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  border: none;
+  background: transparent;
+}
+
+.container .calendarHeading .right {
+  right: 0px;
+}
+
+.container .calendarHeading .left {
+  left: 0px;
+}
+
+.container .calendarHeading .heading {
+  font-weight: 500;
+  font-size: 40px;
+  padding: 20px;
+  text-align: center;
+}
+
+.container .content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.container .content .day {
+  width: 100%;
+  height: auto;
+}
+
+.container .content .day > div:first-child {
+  padding: 10px;
+  text-align: center;
+  background-color: white;
+  color: #6dcfe6;
+}
+
+.container .content .day .date {
+  background-color: white;
+  height: 80px;
+  width: 100%;
+  position: relative;
+  border: 1px solid #f7f5f5;
+}
+
+.container .content .day .date span {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 30px;
+  width: 30px;
+  right: 10px;
+  top: 10px;
+  font-weight: 500;
+}
+
+.container .content .day .date .currentDate {
+  border-radius: 50%;
+  font-weight: 600;
+  color: white;
+  background-color: #9565c2;
+}
+/*# sourceMappingURL=calendar.css.map */

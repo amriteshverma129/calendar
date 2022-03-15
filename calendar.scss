@@ -1,0 +1,72 @@
+*{
+    box-sizing: border-box;
+    margin:0px;
+    padding:0px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+.container{
+    position: relative;
+    background-color: rgb(228, 232, 235);
+    padding : 20px;
+   .calendarHeading{
+       position: relative;
+    button{
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        border:none;
+        background: transparent;
+    }
+    .right{
+        right:0px;
+    }
+    .left{
+        left:0px;
+    }
+    .heading{
+        font-weight: 500;
+        font-size: 40px;
+        padding:20px;
+        text-align: center;
+    }
+   }
+    .content{
+        display: flex;
+        flex-direction: row;
+        .day{
+            width:100%;
+            height:auto;
+            >div:first-child{
+                padding: 10px ;
+                text-align: center;
+                background-color: white;
+                color:rgb(109, 207, 230);
+            }
+            .date{
+                background-color: white;
+                height:80px;
+                width:100%;
+                position: relative;
+                border: 1px solid rgb(247, 245, 245);
+                span{
+                    position: absolute;
+                    display:flex;
+                    align-items: center;
+                    justify-content: center;
+                    height:30px;
+                    width:30px;
+                    right:10px;
+                    top:10px;
+                    font-weight:  500;
+                }
+                .currentDate{
+                    border-radius: 50%;
+                    font-weight:  600;
+                    color:white;
+                    background-color: rgb(149, 101, 194);
+                }
+            }
+        }
+    }
+}
