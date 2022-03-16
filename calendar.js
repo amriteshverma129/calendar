@@ -1,59 +1,102 @@
-const d = new Date();
+
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-//const day = days[d.getDay()];
-const currentMonthIndex = d.getMonth();
-const date = d.getDate();
-const currentYear = d.getFullYear();
-
-
-
-
-
-function createCalendar(monthIndex, year) {
-    const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
-    document.querySelector('.heading').innerHTML = `${months[monthIndex]} ${year}`
-    for (let i = 0; i < 7; i++) {
-        document.querySelector('.' + days[i]).innerHTML = ''
+class DateService {
+    constructor() {
+        this.currentDate = new Date();
     }
-    for (let i = 1; i <= daysInMonth; i++) {
-        let dayIndex = new Date(`${months[monthIndex]} ${i}, ${year} `).getDay();
-        if (i === 1 && dayIndex !== 0) {
-            for (let j = 0; j < dayIndex; j++) {
-                document.querySelector('.' + days[j]).innerHTML += `<div class="date"></div>`
+
+    getCurrentDate() {
+        const date = this.currentDate.getDate();
+        return date;
+    }
+    getCurrentMonthIndex() {
+        const monthIndex = this.currentDate.getMonth();
+        return monthIndex;
+    }
+    getCurrentYear() {
+        const year = this.currentDate.getFullYear();
+        return year;
+    }
+    getCurrentDayIndex() {
+        const dayIndex = this.currentDate.getDay();
+        return dayIndex;
+    }
+    getMonthDays(year, monthIndex) {
+        const totalDays = new Date(year, monthIndex + 1, 0).getDate();
+        return totalDays
+    }
+    getDayIndex(month, date, year) {
+        const dayIndex = new Date(`${month} ${date}, ${year} `).getDay();
+        return dayIndex;
+    }
+
+}
+
+class Calendar {
+    constructor() {
+        this.dateService = new DateService();
+        this.currentMonthIndex = this.dateService.getCurrentMonthIndex();
+        this.currentDate = this.dateService.getCurrentDate();
+        this.currentYear = this.dateService.getCurrentYear();
+        this.year = this.currentYear;
+        this.monthIndex = this.currentMonthIndex;
+
+    }
+    createCalendar() {
+        const daysInMonth = this.dateService.getMonthDays(this.year, this.monthIndex)
+        for (let i = 1; i <= daysInMonth; i++) {
+            let dayIndex = this.dateService.getDayIndex(months[this.monthIndex], i, this.year)
+            if (i === 1 && dayIndex !== 0) {
+                for (let j = 0; j < dayIndex; j++) {
+                    document.querySelector('.' + days[j]).innerHTML += `<div class="date"></div>`
+                }
             }
+            document.querySelector('.' + days[dayIndex]).innerHTML += `<div class="date eventDate"><span class=${this.currentDate === i && this.currentMonthIndex === this.monthIndex && this.currentYear === this.year ? "currentDate" : ''}>${i}</span></div>`
         }
-        document.querySelector('.' + days[dayIndex]).innerHTML += `<div class="date eventDate"><span class=${date === i && currentMonthIndex === monthIndex && currentYear === year ? "currentDate" : ''}>${i}</span></div>`
+    }
+    setHeading() {
+        document.querySelector('.heading').innerHTML = `${months[this.monthIndex]} ${this.year}`
+    }
+    clearCalendar() {
+        for (let i = 0; i < 7; i++) {
+            document.querySelector('.' + days[i]).innerHTML = ''
+        }
+    }
+    setMonthIndexYearDecrease() {
+        if (this.monthIndex === 0) {
+            this.monthIndex = 11;
+            this.year = this.year - 1;
+        }
+        else {
+            this.monthIndex = this.monthIndex - 1;
+        }
+    }
+    setMonthIndexYearIncrease() {
+        if (this.monthIndex === 11) {
+            this.monthIndex = 0;
+            this.year = this.year + 1;
+        }
+        else {
+            this.monthIndex = this.monthIndex + 1;
+        }
     }
 }
 
 
-let count = currentMonthIndex;
-let year = currentYear;
-createCalendar(count, year);
+const newCalendar = new Calendar();
+newCalendar.createCalendar();
+newCalendar.setHeading();
 document.querySelector('.right').addEventListener('click', () => {
-    count = count + 1;
-    if (count === 12) {
-        count = 0;
-        year = year + 1;
-    }
-    createCalendar(count, year);
-
+    newCalendar.setMonthIndexYearIncrease();
+    newCalendar.clearCalendar();
+    newCalendar.createCalendar();
+    newCalendar.setHeading();
 })
 document.querySelector('.left').addEventListener('click', () => {
-    count = count - 1;
-    if (count === -1) {
-        count = 11;
-        year = year - 1;
-    }
-    createCalendar(count, year);
-
+    newCalendar.setMonthIndexYearDecrease();
+    newCalendar.clearCalendar();
+    newCalendar.createCalendar();
+    newCalendar.setHeading();
 })
-// document.querySelectorAll('.day').forEach((day, index) => {
-//     Array.from(day.children).forEach((date) => {
-//         date.addEventListener('click', (e) => {
 
-//         })
-//     })
-// })
