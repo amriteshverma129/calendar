@@ -44,24 +44,19 @@ class Calendar {
 
     }
     createCalendar() {
-        const daysInMonth = this.dateService.getMonthDays(this.year, this.monthIndex)
+        const daysInMonth = this.dateService.getMonthDays(this.year, this.monthIndex);
+        let FirstDayIndex = this.dateService.getDayIndex(months[this.monthIndex], 1, this.year);
+        document.querySelector('.calendar').innerHTML = '';
+        for (let i = 0; i < FirstDayIndex; i++) {
+            document.querySelector('.calendar').innerHTML += `<div></div>`
+        }
         for (let i = 1; i <= daysInMonth; i++) {
-            let dayIndex = this.dateService.getDayIndex(months[this.monthIndex], i, this.year)
-            if (i === 1 && dayIndex !== 0) {
-                for (let j = 0; j < dayIndex; j++) {
-                    document.querySelector('.' + days[j]).innerHTML += `<div class="date"></div>`
-                }
-            }
-            document.querySelector('.' + days[dayIndex]).innerHTML += `<div class="date eventDate"><span class=${this.currentDate === i && this.currentMonthIndex === this.monthIndex && this.currentYear === this.year ? "currentDate" : ''}>${i}</span></div>`
+            document.querySelector('.calendar').innerHTML += `<div><span class=${this.currentDate === i && this.currentMonthIndex === this.monthIndex && this.currentYear === this.year ? "currentDate" : ''}>${i}</span></div>`
         }
     }
+
     setHeading() {
         document.querySelector('.heading').innerHTML = `${months[this.monthIndex]} ${this.year}`
-    }
-    clearCalendar() {
-        for (let i = 0; i < 7; i++) {
-            document.querySelector('.' + days[i]).innerHTML = ''
-        }
     }
     setMonthIndexYearDecrease() {
         if (this.monthIndex === 0) {
@@ -89,13 +84,11 @@ newCalendar.createCalendar();
 newCalendar.setHeading();
 document.querySelector('.right').addEventListener('click', () => {
     newCalendar.setMonthIndexYearIncrease();
-    newCalendar.clearCalendar();
     newCalendar.createCalendar();
     newCalendar.setHeading();
 })
 document.querySelector('.left').addEventListener('click', () => {
     newCalendar.setMonthIndexYearDecrease();
-    newCalendar.clearCalendar();
     newCalendar.createCalendar();
     newCalendar.setHeading();
 })
